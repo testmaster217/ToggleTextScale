@@ -8,17 +8,21 @@ int preferredTextScale;
 // If that number is out of range, not provided, can't be parsed as an int,
 // or there are too many args (should be only the one single number); show an
 // error message. (Preferrably as a popup window, if I can do that.)
-if (args.Length != 1) throw new ArgumentException("The ToggleTextScale " +
-    "command must include EXACTLY one (1) command line argument: the " +
-    "preferred text scale.");
+if (args.Length != 1)
+{
+    Console.Error.WriteLine("The ToggleTextScale command must include EXACTLY one (1) command line argument: the preferred text scale.");
+    return;
+}
 if (!int.TryParse(args[0], out preferredTextScale))
-    throw new ArgumentException("The preferred text scale passed into the " +
-        "ToggleTextScale command must be an integer between 100 (inclusive) " +
-        "and 225 (inclusive).");
+{
+    Console.Error.WriteLine("The preferred text scale passed into the ToggleTextScale command must be an integer between 100 (inclusive) and 225 (inclusive).");
+    return;
+}
 if (preferredTextScale < 100 ||  preferredTextScale > 225)
-    throw new ArgumentOutOfRangeException("args[0]", "The preferred text scale passed " +
-        "into the ToggleTextScale command must be an integer between 100 " +
-        "(inclusive) and 225 (inclusive).");
+{
+    Console.Error.WriteLine("The preferred text scale passed into the ToggleTextScale command must be an integer between 100 (inclusive) and 225 (inclusive).");
+    return;
+}
 
 // Creating some objects that I will need.
 UISettings uISettings = new();
